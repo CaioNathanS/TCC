@@ -1,0 +1,109 @@
+.novo-cliente-container .content{
+    width: 100%;
+    max-width: 1120;
+    height:100vh;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.novo-cliente-container .content{
+    width:100%;
+    height: 100%;
+    padding: 40px;
+    background: #f0f0f5;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.novo-cliente-container .content section{
+    width: 100%;
+    max-width: 380px;
+
+
+}
+
+.novo-cliente-container .content section h1{
+    margin:61px 0 32px;
+    font-size: 32px;
+}
+
+.novo-cliente-container .content section p{
+    font-size: 18px;
+    color:#737380;
+    line-height: 32px;
+}
+
+.novo-cliente-container .content form{
+    width: 100%;
+    max-width: 450px;
+    margin-left: 110px;
+    
+
+}
+
+.novo-cliente-container .content form strong{
+  margin-left:5px;
+
+}
+
+.novo-cliente-container .content section img{
+
+    height:250px;
+}
+
+.unirInputs{
+    display: flex;
+}
+
+.unirInputs input+input{
+    margin-left:8px ;
+}
+
+form input{
+    width: 100%;
+    height: 50px;
+    color: #333;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    padding:10px;
+    margin-bottom: 8px;
+}
+
+form strong{
+    background:#fafafd ;
+    width: 30%;
+    height: 50px;
+    color: #333;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    padding:10px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.inputs{
+    display: flex;
+    align-items: center;
+    
+}
+
+.unirInputs a{
+    background:#fafafd ;
+    width: 30%;
+    height: 50px;
+    color: #333;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    padding:10px;
+    margin-bottom: 8px;
+    align-items: center;
+}
+

@@ -2,9 +2,6 @@ import React,{useEffect,useState} from 'react';
 import{Link,useHistory} from 'react-router-dom';
 import{FiPower,FiArrowLeft,FiTrash2} from 'react-icons/fi'
 
-import {uniqueId} from 'lodash';
-
-import filesize from 'filesize';
 
 import api from '../../services/api';
 
@@ -18,37 +15,16 @@ export default function Profile(){
     
    
     const [casos,setCasos]=useState([]);
+    
 
     const history=useHistory();
 
     const nomeAdvogado = localStorage.getItem('nomeAdvogado');
     const advogadoId = localStorage.getItem('advogadoId');
 
-    const [file,setFile]=useState([]);
+    
 
-    const [upload,setUploads]=useState([]);
   
-
-
-    function onChange (e){
-        setFile(e.target.files[0]);
-    }
-
-    function handleSubmit(){
-        const data=new FormData();
-        data.append('file',file);
-         
-        api.post('uploads',data)
-
-    }
-
-
-    useEffect(()=>{
-        api.get('uploads').then(response=>{
-            setUploads(response.data)
-        })
-    })
-
     
   
 
@@ -100,7 +76,7 @@ export default function Profile(){
 
                 <span>Bem vindo {nomeAdvogado} </span>
             <Link className="button"to="/casos/novo">  Novo Caso </Link>
-            <Link className="button"to="/register">  Cadastrar Cliente </Link>
+            <Link className="button"to="/cliente/cadastro">  Cadastrar Cliente </Link>
 
             <button onClick={handleLogout} type="button">
                 <FiPower size={18} color="#e02041" />
@@ -108,50 +84,42 @@ export default function Profile(){
 
             </header>
 
+           
+
             <h1>Casos cadastrados</h1>
+
             
 
-            <ul>
+            <ul> 
 
             {casos.map(casos =>(
 
            
             <li key={casos.id}>
-                <strong>Nome </strong>
-                <p>{casos.title}</p>
 
-                <strong>Id </strong>
-                <p>{casos.advogados_id}</p>
-
-                <strong>Descrição</strong>
-                <p>{casos.description}</p>
-
-             
-                <strong>Arquivos: </strong>
-
-                {upload.map(upload=>(
-                <a key={upload.size} 
-                href={upload.url} 
-                rel="noopener noreferrer"
-                target="_blank">
-                    {upload.name}  </a>
-
-                ))}
                 
+                <strong>Autor/Reclamante</strong>
+                <p>{casos.autor}</p>
 
-                <form onSubmit={handleSubmit}>
-                   <strong> Fazer upload: </strong>
-                   <input type="file" onChange={onChange}/>
-                   <button type="submit"> Enivar </button>
-               </form>
+                <strong>Réu/Reclamado</strong>
+                <p>{casos.reu}</p>
 
+                <strong>Circunstancias</strong>
+                <p>{casos.circunstancias}</p>
+
+                <strong>Fundamento Jurídico</strong>
+                <p>{casos.fundamento}</p>
+
+                <strong>Parecer</strong>
+                <p>{casos.parecer}</p>
+
+           
 
                
-                    
-
                
-              
-
+                 
+                
+            
                 <Link className="button" to={`/profile/${casos._id}`}> Ver Detalhes 
                  
                   </Link>
@@ -167,7 +135,7 @@ export default function Profile(){
 
         </ul>
 
-        <Link className="back-link"to="/profile">
+        <Link className="back-link"to="/">
                         <FiArrowLeft size={16} color ="#E02041"/>
                         
                         Voltar

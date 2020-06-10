@@ -6,12 +6,19 @@ module.exports ={
 
 
 async create (req,res){
-    const {email}= req.body;
+    const {email,id,nome}= req.body;
+    
     
 
     try{
         if(await Advogado.findOne({email}))
-            return res.status(400).send({error:'usuario ja existe'});
+            return res.status(400).send({error:'email já existente'});
+
+        if(await Advogado.findOne({id}))
+            return res.status(400).send({error:'id ja existe'});
+
+         if(await Advogado.findOne({nome}))
+            return res.status(400).send({error:'Nome existe'});
 
         const advogado= await Advogado.create(req.body);
 
@@ -25,8 +32,19 @@ async index (req,res){
     Advogado.find(function(err, advogado) {
         if (err) return console.error(err);
         return res.send(advogado);
-})
+    })
 },
+
+async delete(req,res){
+
+
+    const advogados= await Advogado.findById(req.params.id);
+
+    await advogados.remove();
+
+    res.send('deletado irmão');
+
+}
 
 
 

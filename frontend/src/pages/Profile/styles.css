@@ -34,7 +34,7 @@
     height: 60px;
     width: 60px;
     border-radius: 8px;
-    border: 1px solid #dcdced;
+    border: 1px solid #181717;
     background: transparent;
     margin-left: 16px;
     transition: border-color 0.3s;
@@ -42,7 +42,7 @@
 }
 
 .profile-container header button:hover{
-    border-color: #999;
+    border-color: rgb(19, 18, 18);
 
 }
 
@@ -94,5 +94,22 @@
     color:#737380;
     line-height: 21px;
     font-size: 16px;
+
+}
+
+.profile-container ul li form button{
+    
+    background: #f3eff3;
+    border: 0;
+    border-radius: 8px;
+    color: rgb(139, 125, 125);
+    font-weight: 20;
+    margin-right: 25px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 20px;
+    transition: filter 0.2s;
 
 }

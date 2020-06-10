@@ -1,4 +1,4 @@
-import React ,{useState}from 'react';
+import React ,{useState,useEffect}from 'react';
 import {FiArrowLeft} from'react-icons/fi';
 import{Link,useHistory} from 'react-router-dom';
 
@@ -10,24 +10,48 @@ import'./styles.css';
 import logo from '../../assets/logoWB.jpeg';
 
 export default function NovoCaso(){
-    const [casos]=useState([]);
-    const advogadoId=localStorage.getItem('advogadoId');
-    const [title,setTitle] = useState('');
-    const [description,setDescription] = useState('');
 
+    const [clientes,setClientes]=useState([]);
+
+    
+    const [autor,setAutor] = useState('');
+    const [reu,setReu] = useState('');
+    const [circunstancias,SetCircunstancias]=useState('');
+    const [fundamento,setFundamento]=useState('');
+    
+    
+
+
+    
     
     const history=useHistory();
 
+
+    useEffect(()=>{
+        api.get('clientes'
+        ).then(response =>{
+            setClientes(response.data);
+
+
+        })
+
+    },);
    
 
     async function handleNovoCaso(e){
         e.preventDefault();
 
-        
+      
+       
 
         const data ={
-            title,
-            description,
+            autor,
+            reu,
+            circunstancias,
+            fundamento,
+            
+            
+           
             advogados_id:localStorage.getItem('advogadoId')
         };
 
@@ -65,46 +89,46 @@ export default function NovoCaso(){
         </section>
 
         <form onSubmit={handleNovoCaso}> 
-            <input 
-            placeholder="Título do caso"
-            value={title}
-            onChange={e=>setTitle(e.target.value)}
+            <input list="clientes"
+            placeholder="Autor"
+            value={autor}
+            onChange={e=>setAutor(e.target.value)}
+            required
+            />
+
+            <input list="clientes"
+            placeholder="Réu"
+            value={reu}
+            onChange={e=>setReu(e.target.value)}
             required
             />
 
             <textarea 
-            placeholder=" Descrição"
-            value={description}
-            onChange={e=>setDescription(e.target.value)}
+            placeholder="Circunstancias"
+            value={circunstancias}
+            onChange={e=>SetCircunstancias(e.target.value)}
             required
             />
 
-            <input list="casoTipo" placeholder="Tipo do caso" required/>
+            <input 
+            placeholder="Fundamento"
+            value={fundamento}
+            onChange={e=>setFundamento(e.target.value)}
+            required
+            />
 
-            <datalist id="casoTipo">
-            <option value="Cívil"/>
-            <option value="Criminal"/>
-            <option value="Penal"/>
-            <option value="Etc"/>
-            <option value="Coisa e tal"/>
-            </datalist>
-
-            <input list="clienteCasos" placeholder="Cliente"/>
-           
-                <datalist id="clienteCasos">
-                {casos.map(casos =>(
-               <option value={casos.title} />
-               ))}
-
-               </datalist>
-                
-               
             
+
+            <datalist id="clientes">
+
+                {clientes.map(clientes=>(
+                    <option value={clientes.nome} />
+
+                ))}
+
            
-               
-
-    
-
+            
+            </datalist>
 
             <button type="submit"className="button">Cadastrar</button>
             

@@ -45,13 +45,34 @@ async delete(req,res){
 
 async update(req,res){
 
-    const title =  req.body.title;
-    const description =  req.body.description;
-    const advogados_id =  req.body.advogados_id;
+    const autor =  req.body.autor;
+    const reu =  req.body.reu;
+    const circunstancias =  req.body.circunstancias;
+    const fundamento = req.body.fundamento;
+    const parecer = req.body.parecer;
 
-     await Casos.findOneAndUpdate({_id:req.params.id},{title:title});
-     await Casos.findOneAndUpdate({_id:req.params.id},{description:description});
-     await Casos.findOneAndUpdate({_id:req.params.id},{advogados_id:advogados_id});
+     if(autor!==''){
+        await Casos.findOneAndUpdate({_id:req.params.id},{autor:autor});
+     }
+    
+     if(reu!==''){
+        await Casos.findOneAndUpdate({_id:req.params.id},{reu:reu});
+     }
+
+     if(circunstancias!==''){
+        await Casos.findOneAndUpdate({_id:req.params.id},{circunstancias:circunstancias});
+     }
+     
+     if(fundamento!==''){
+        await Casos.findOneAndUpdate({_id:req.params.id},{fundamento:fundamento});
+     }
+
+     if(parecer!==''){
+        await Casos.findOneAndUpdate({_id:req.params.id},{parecer:parecer});
+     }
+     
+     
+    
     
     
 

@@ -12,14 +12,47 @@ import logo from '../../assets/logoWB.jpeg';
 export default function Detalhes({match}){
     
     const [casos,setCasos]=useState([]);
-    const [title,setTitle] = useState('');
-    const [description,setDescription] = useState('');
+    const [autor,setAutor] = useState('');
+    const [reu,setReu] = useState('');
+    const [circunstancias,SetCircunstancias]=useState('');
+    const [fundamento,setFundamento]=useState('');
+    const [parecer,setParecer]=useState('');
 
     const history=useHistory();
 
     const nomeAdvogado = localStorage.getItem('nomeAdvogado');
     const advogadoId = localStorage.getItem('advogadoId');
+
+
+    const [upload,setUploads]=useState([]);
+  
    
+
+  
+   
+
+
+
+    useEffect(()=>{
+        api.get(`uploads/${match.params.id}`).then(response=>{
+            setUploads(response.data)
+        })
+    })
+
+
+    const [file,setFile]=useState([]);
+
+    function onChange (e){
+        setFile(e.target.files[0]);
+    }
+
+    function handleSubmit(){
+        const data=new FormData();
+        data.append('file',file);
+         
+        api.post(`uploads/${match.params.id}`,data)
+
+    }
    
     async function editarCaso(e){
         e.preventDefault();
@@ -27,8 +60,11 @@ export default function Detalhes({match}){
         
 
         const data ={
-            title,
-            description,
+            autor,
+            reu,
+            circunstancias,
+            fundamento,
+            parecer,
             advogados_id:localStorage.getItem('advogadoId')
         };
 
@@ -59,20 +95,11 @@ export default function Detalhes({match}){
 
         })
 
-    },[advogadoId]);
+    });
 
 
-    //function mostrarForm(e){
-       // e.preventDefault();
-        //document.getElementById('editar').hidden=false;
-  
-   // }
-
-    function esconderForm(e){
-        e.preventDefault();
-        document.getElementById('editar').hidden=true;
-  
-    }
+   
+   
 
 
     function handleLogout(){
@@ -91,7 +118,7 @@ export default function Detalhes({match}){
 
                 <span>Bem vindo {nomeAdvogado} </span>
             <Link className="button"to="/casos/novo">  Novo Caso </Link>
-            <Link className="button"to="/register">  Cadastrar Cliente </Link>
+            <Link className="button"to="/cliente/cadastro">  Cadastrar Cliente </Link>
 
             <button onClick={handleLogout} type="button">
                 <FiPower size={18} color="#e02041" />
@@ -113,31 +140,96 @@ export default function Detalhes({match}){
 
 
                 <form onSubmit={editarCaso}>
-                <strong>Nome </strong>
+
+
+                 <div className="unirInputs">   
+                 <strong> Autor/Reclamante </strong> 
                 <input 
-                    placeholder={casos.title}
-                    value={title}
-                    onChange={e=>setTitle(e.target.value)}
+                    placeholder={casos.autor}
+                    value={autor}
+                    onChange={e=>setAutor(e.target.value)}
                     
                  />
 
-                <strong>Id </strong>
-                <input placeholder="Id"
-                        value={casos.id} ></input>
+                </div>
 
-                <strong>Descrição </strong>    
+                <div className="unirInputs"> 
+
+                <strong> Réu/Reclamado </strong>
+                <input placeholder={casos.reu}
+                        value={reu} 
+                        onChange={e=>setReu(e.target.value)}
+                        />
+                </div>
+
+
+
+                <div className="unirInputs"> 
+                <strong> Circunstancias </strong>   
+                
                 <input 
-                placeholder={casos.description}
-                value={description}
-                onChange={e=>setDescription(e.target.value)}
+                placeholder={casos.circunstancias}
+                value={circunstancias}
+                onChange={e=>SetCircunstancias(e.target.value)}
+                
+                />
+                </div>
+
+                <div className="unirInputs"> 
+
+                <strong> Fundamento </strong>   
+
+                <input 
+                placeholder={casos.fundamento}
+                value={fundamento}
+                onChange={e=>setFundamento(e.target.value)}
+                
+                />
+                </div>
+
+
+                <div className="unirInputs"> 
+                <strong> Parecer </strong>   
+
+                <input 
+                placeholder={casos.parecer}
+                value={parecer}
+                onChange={e=>setParecer(e.target.value)}
                 
                 />
 
-                <button type="submit">Editar</button>
+                </div>
+
+                <div className="unirInputs"> 
+                <strong> Arquivos </strong>  
+                {  
+                    upload.map(upload=>(
+    
+                      
+                    <a 
+                     key={upload.size} 
+                    href={upload.url} 
+                    rel="noopener noreferrer"
+                    target="_blank">
+                        {upload.name}  </a> 
+                        
+    
+                    ))}     
+                
+
+               </div>
+
+               <button type="submit" >Editar</button>
 
                 </form> 
 
+                <p> Fazer upload: </p>
                 
+
+                   <input type="file" onChange={onChange}/>
+                  
+                   <button type="submit" onClick={handleSubmit} className="arquivo"> Enivar Arquivo </button>
+                   
 
 
             </li> 
@@ -145,44 +237,15 @@ export default function Detalhes({match}){
             
             ))}
 
-          
+        
 
-                {casos.map(casos =>(
-                <li hidden="true" id="editar">
-                  <form > 
-                      <strong>Nome</strong>
-                         <input 
-                          placeholder="Título do caso"
-                          value={casos.title}
-                                    
-                          required
-                         />
-
-                         <strong> Id </strong>
-
-                         <input 
-                            placeholder="id"
-                            value={casos.id}
-                                    
-                            required
-                         />
-
-                         <strong> Descrição </strong>
-
-                            <input 
-                            placeholder="Descrição"
-                            value={casos.description}     
-                            required
-                            />
+        
 
 
-                        </form>
+        
 
-                        <button type="button" onClick={esconderForm}> editar</button>
-
-                          </li>
-                          ))}
-
+      
+      
         </ul>
 
 

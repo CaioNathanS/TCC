@@ -10,7 +10,7 @@
 
 body{
     font:400 14px Roboto, sans-serif;
-    background:#171718;
+    background:#bcbcc4;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -42,6 +42,11 @@ form textarea{
     border-radius: 8px;
     padding:10px;
     line-height: 24px;
+}
+
+a{
+    text-decoration: none;
+   
 }
 
 

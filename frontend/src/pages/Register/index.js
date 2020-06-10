@@ -11,6 +11,7 @@ import test from '../../assets/logoWB.jpeg';
 export default function Register(){
     const[nome,setNome] = useState('');
     const[email,setEmail] = useState('');
+    const[id,setId] = useState('');
 
     const history=useHistory();
 
@@ -20,17 +21,18 @@ export default function Register(){
         const data = {
             nome,
             email,
+            id
 
         };
 
       try{
        const response = await api.post('advogados', data)
 
-       alert(`deu certo: ${response.data.id}`);
+       alert(`Cadastro realizado com sucesso: ${response.data.id}`);
 
        history.push('/');
     } catch(err) {
-        alert('Deu ruim pai vei');
+        alert('Não foi possível concluir o cadastro');
 
     }
 
@@ -65,6 +67,13 @@ export default function Register(){
                            value={email}
                            onChange={e=>setEmail(e.target.value)}
                     />
+
+                    <input  
+                           placeholder="OAB"
+                           value={id}
+                           onChange={e=>setId(e.target.value)}
+                    />
+                    
                     
                     <button type="submit"className="button">Cadastrar</button>
                     

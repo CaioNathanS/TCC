@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import NovoCaso from './pages/NovoCaso';
 import Detalhes from './pages/Detalhes';
+import NovoCliente from './pages/NovoCliente';
 
 export default function Routes (){
     return(
@@ -17,6 +18,7 @@ export default function Routes (){
             <Route path="/profile"  exact component={Profile}/>
             <Route path="/casos/novo" component={NovoCaso}/>
             <Route path="/profile/:id" component={Detalhes}/>
+            <Route path="/cliente/cadastro" component={NovoCliente}/>
             </Switch>
         
         

@@ -10,6 +10,7 @@ const {promisify}=require('util');
         size:Number,
         key:String,
         url:String,
+        caso:String,
     
         createdAt:{
             type:Date,
