@@ -16,7 +16,7 @@
 }
 
 .login-container section.form form{
-    margin-top: 100px;
+    margin-top: 40px;
 
 }
 
@@ -28,12 +28,13 @@
 
 
 .login-container section img{
-
-    width: 350px;
-    height: 200px;
+    margin-top: 19px;
+    width: 300px;
+    height: 300px;
 }
 
 .login-container img{
-
+    border-radius: 8px;
     height: 500px;
 }
+

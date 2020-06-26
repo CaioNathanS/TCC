@@ -6,7 +6,7 @@ import api from '../../services/api';
 
 import './styles.css';
 
-import test from '../../assets/logoWB.jpeg';
+import test from '../../assets/pretoLogo.png';
 
 export default function Register(){
     const[nome,setNome] = useState('');
@@ -47,7 +47,7 @@ export default function Register(){
                 <h1>Cadastro</h1>
                 <p>Faca seu cadastro e pá e n sei oq lá e tudo mais aquela coisa toda</p>
 
-                <Link className="back-link"to="/profile">
+                <Link className="back-link"to="/">
                         <FiArrowLeft size={16} color ="#E02041"/>
                         
                        voltar

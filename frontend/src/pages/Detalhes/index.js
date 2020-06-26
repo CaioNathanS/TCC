@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import{Link,useHistory} from 'react-router-dom';
-import{FiPower,FiArrowLeft} from 'react-icons/fi'
+import{FiPower,FiArrowLeft,FiEdit,FiSend,FiTrash2} from 'react-icons/fi'
 
 import api from '../../services/api';
 
@@ -21,24 +21,10 @@ export default function Detalhes({match}){
     const history=useHistory();
 
     const nomeAdvogado = localStorage.getItem('nomeAdvogado');
-    const advogadoId = localStorage.getItem('advogadoId');
-
+   
 
     const [upload,setUploads]=useState([]);
-  
    
-
-  
-   
-
-
-
-    useEffect(()=>{
-        api.get(`uploads/${match.params.id}`).then(response=>{
-            setUploads(response.data)
-        })
-    })
-
 
     const [file,setFile]=useState([]);
 
@@ -46,13 +32,40 @@ export default function Detalhes({match}){
         setFile(e.target.files[0]);
     }
 
-    function handleSubmit(){
+   async function handleSubmit(){
         const data=new FormData();
         data.append('file',file);
          
-        api.post(`uploads/${match.params.id}`,data)
+        try{
+        await api.post(`uploads/${match.params.id}`,data)
+        alert('Upload feito com sucesso');
+
+        }catch(err){
+            alert('Não foi possível concluir o upload');
+        }
+        window.location.reload();
+    
 
     }
+
+    async function excluirArquivo(id) {
+        if (window.confirm("Tem certeza que deseja excluir esse arquivo?")) {
+            try{
+                await api.delete(`uploads/${id}`,{
+                   
+                
+            });
+    
+            setCasos(upload.filter(uploads=>uploads._id!==id));
+
+            
+    
+            } catch(err) {
+                alert('Hoje não faro');
+            }
+        }
+        window.location.reload();
+     }
    
     async function editarCaso(e){
         e.preventDefault();
@@ -67,35 +80,47 @@ export default function Detalhes({match}){
             parecer,
             advogados_id:localStorage.getItem('advogadoId')
         };
-
+        if (window.confirm("Tem certeza que deseja editar esse caso?")) {
         try{
             await api.put(`casos/${match.params.id}`,data
                 
         )
-            history.push('/profile');
+        alert('Caso editado!');
+        history.push('/profile');
 
         } catch(err){
             alert('Erro ao editar')
 
         }
+        }
 
 
 
     }
+
+    useEffect(()=>{
+        let mouted = true;
+        api.get('uploads').then(response=>{
+         if(mouted){
+        setUploads(response.data)
+    }})
+        return ()=> mouted = false;
+
+    },[]);
     
     
     useEffect(()=>{
-        api.get(`casos/${match.params.id}`,{
-            headers:{
-                Authorization:advogadoId,
-            }
-        }).then(response =>{
+
+        let mouted =true;
+        api.get(`casos/${match.params.id}`)
+        .then(response =>{
+            if(mouted){
             setCasos(response.data);
 
+        }})
+        return ()=>mouted= false;
 
-        })
-
-    });
+    },[match.params.id]);
 
 
    
@@ -111,7 +136,7 @@ export default function Detalhes({match}){
 
    
     return(
-        <div className="profile-container"> 
+        <div className="detalhes-container"> 
             <header>
 
                 <img src={logo} alt="deManobras"/>
@@ -136,10 +161,10 @@ export default function Detalhes({match}){
             {casos.map(casos =>(
 
            
-            <li key={casos.id}>
+            <li key={casos._id}>
 
 
-                <form onSubmit={editarCaso}>
+                <form onSubmit={editarCaso} >
 
 
                  <div className="unirInputs">   
@@ -199,37 +224,44 @@ export default function Detalhes({match}){
                 />
 
                 </div>
+                <button type="Submit"> <FiEdit size={20}  /> Editar </button>
 
-                <div className="unirInputs"> 
+                </form> 
+                
+
+
+                <hr/>
+
+                <div className="unirInputs">
+
                 <strong> Arquivos </strong>  
                 {  
-                    upload.map(upload=>(
-    
-                      
-                    <a 
+                    upload.filter(caso=>(caso.caso===`${casos._id}`)).map(upload=>(
+                   
+                    <div className="unirInputs">
+                    < a
                      key={upload.size} 
                     href={upload.url} 
                     rel="noopener noreferrer"
                     target="_blank">
-                        {upload.name}  </a> 
-                        
-    
-                    ))}     
-                
+                        {upload.name}   
+                     </a> 
 
+                    <FiTrash2 onClick={()=>excluirArquivo(upload._id)} size={18} color="#e02041"/>
+                    </div>
+                    
+                    ))}   
+
+                </div>
+
+               
+                <div className="unirInputs"> 
+     
+                <input type="file"  onChange={onChange} className="file"/> 
+                 
                </div>
 
-               <button type="submit" >Editar</button>
-
-                </form> 
-
-                <p> Fazer upload: </p>
-                
-
-                   <input type="file" onChange={onChange}/>
-                  
-                   <button type="submit" onClick={handleSubmit} className="arquivo"> Enivar Arquivo </button>
-                   
+               <button onClick={handleSubmit} type="button"> <FiSend size={20}  /> Enivar </button> 
 
 
             </li> 
@@ -237,14 +269,7 @@ export default function Detalhes({match}){
             
             ))}
 
-        
 
-        
-
-
-        
-
-      
       
         </ul>
 

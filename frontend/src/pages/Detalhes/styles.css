@@ -1,15 +1,148 @@
-form input{
+.detalhes-container{
     width: 100%;
+    max-width: 1180px;
+    padding:0 30px ;
+    margin: 32px auto;
+
+}
+
+.detalhes-container header{
+    display: flex;
+    align-items: center;
+
+}
+
+.detalhes-container header img{
+    height: 64px;
+}
+
+.detalhes-container header span{
+    font-size: 20px;
+    margin-left: 24px;
+
+}
+
+.detalhes-container header a{
+    width: 260px;
+    margin-left: auto;
+    margin-top: 0;
+
+}
+
+.detalhes-container header button{
     height: 60px;
+    width: 60px;
+    border-radius: 8px;
+    border: 1px solid #181717;
+    background: transparent;
+    margin-left: 16px;
+    transition: border-color 0.3s;
+
+}
+
+.detalhes-container header button:hover{
+    border-color: rgb(19, 18, 18);
+
+}
+
+.detalhes-container h1{
+    margin-top: 80px;
+    margin-bottom: 24px;
+
+}
+
+.detalhes-container ul{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-gap:24px;
+    list-style:none;
+
+}
+.detalhes-container ul li {
+    background: #FFF;
+    padding: 24px;
+    border-radius: 8px;
+    position: relative;
+
+}
+
+
+.detalhes-container ul li strong {
+    display: block;
+    text-align: justify;
+    columns: #41414d;
+}
+
+.detalhes-container ul li p + strong {
+    margin-top: 32px;
+
+}
+
+.detalhes-container ul li button{
+    height: 60px;
+    width: 60px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    float:right;
+    transition: border-color 0.08s;
+    
+}
+
+.detalhes-container ul li button:hover{
+    border-color: rgb(19, 18, 18);
+
+}
+
+.detalhes-container ul li p{
+    color:#171718;
+    line-height: 21px;
+    font-size: 18px;
+
+}
+
+.detalhes-container ul li form input {
+    width: 80%;
+    height: 30px;
+    color: #333;
+    border: 1px solid #0c0c0c;
+    border-radius: 3px;
+    margin-bottom: 2px;
+    
+} 
+
+.detalhes-container ul li a{
+    background:#fafafd ;
+    width: 30%;
+    height: 50px;
     color: #333;
     border: 1px solid #dcdce6;
     border-radius: 8px;
     padding:10px;
+    margin-bottom: 8px;
+    text-align: center;
 }
 
 
 
-.arquivo{
-    margin-right: 90px;
-
+.detalhes-container ul li hr{
+    margin-top: 16px;
+    margin-bottom: 10px;
 }
+
+.unirInputs button{
+    border-radius:8px ;
+    margin-top: 8px;
+    margin-right: 8px;
+}
+
+
+
+
+.file{
+    margin-top: 10px;
+    border-radius: 2px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+

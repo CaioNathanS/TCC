@@ -6,8 +6,8 @@ import api from '../../services/api';
 
 import './styles.css';
 
-import logo from '../../assets/logoWB.jpeg';
-import test from '../../assets/gok.png';
+import logo from '../../assets/pretoLogo.png';
+import test from '../../assets/wbLogo.jpeg';
 
 export default function Login(){
 

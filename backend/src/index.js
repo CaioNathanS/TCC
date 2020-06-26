@@ -7,7 +7,7 @@ const path=require('path');
 
 const app = express();
 
-const {mongoose}=require('./database/index')
+
 
 
 app.use(cors());

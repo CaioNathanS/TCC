@@ -39,6 +39,7 @@
     font-size: 18px;
     color:#737380;
     line-height: 32px;
+    text-align: center;
 }
 
 .novo-cliente-container .content form{
@@ -63,35 +64,30 @@
     display: flex;
 }
 
-.unirInputs input+input{
-    margin-left:8px ;
-}
+
 
 form input{
     width: 100%;
-    height: 50px;
+    height: 30px;
     color: #333;
-    border: 1px solid #dcdce6;
-    border-radius: 8px;
+    border: 1px solid #0c0c0c;
+    border-radius: 3px;
     padding:10px;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
 }
 
 form strong{
-    background:#fafafd ;
+    
     width: 30%;
-    height: 50px;
-    color: #333;
-    border: 1px solid #dcdce6;
-    border-radius: 8px;
-    padding:10px;
-    margin-bottom: 8px;
-    align-items: center;
+    height:50px;
+    padding:5px;
+    margin-bottom: 2px;
+    text-align: center;
 }
 
 .inputs{
     display: flex;
-    align-items: center;
+   text-align: center; 
     
 }
 

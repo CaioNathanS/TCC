@@ -28,14 +28,20 @@ export default function NovoCaso(){
 
 
     useEffect(()=>{
+
+        let isSubscribed = true
+
         api.get('clientes'
         ).then(response =>{
-            setClientes(response.data);
 
-
+            if (isSubscribed) {
+                setClientes(response.data);
+              }
+            
         })
+        return () => isSubscribed = false
 
-    },);
+    },[]);
    
 
     async function handleNovoCaso(e){
@@ -119,10 +125,10 @@ export default function NovoCaso(){
 
             
 
-            <datalist id="clientes">
+            <datalist id="clientes" >
 
                 {clientes.map(clientes=>(
-                    <option value={clientes.nome} />
+                    <option key={clientes._id} value={clientes.nome} />
 
                 ))}
 

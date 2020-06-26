@@ -145,7 +145,7 @@ export default function NovoCliente(){
 
             <div className="unirInputs">
             
-                <div className="inputs">
+               
                     <strong>RG</strong>
                 <input 
                     placeholder="RG"
@@ -153,9 +153,9 @@ export default function NovoCliente(){
                     onChange={e=>setRg(e.target.value)}
                     required
                     />
-                    </div>
+                  
 
-                <div className="inputs">
+               
                     <strong>CPF</strong>
                 <input 
                     placeholder="CPF"
@@ -163,14 +163,13 @@ export default function NovoCliente(){
                     onChange={e=>setCpf(e.target.value)}
                     required
                     /> 
-                </div>
-
+               
         
             </div>
 
             <div className="unirInputs">
 
-            <div className="inputs"> 
+            
                 <strong>Orgão Emissor</strong>
                 <input 
                     placeholder="Padrão:SSP-DF"
@@ -178,17 +177,16 @@ export default function NovoCliente(){
                     onChange={e=>setOrgao(e.target.value)}
                     
                 /> 
-                </div>
-
-             <div className="inputs"> 
+               
+            
                 <strong>Data</strong>
              <input 
-                placeholder="Data"
+                placeholder="XX/XX/XXXX"
                 value={emissao}
                 onChange={e=>setEmissao(e.target.value)}
                 required
                 /> 
-            </div>
+           
 
             </div>
 

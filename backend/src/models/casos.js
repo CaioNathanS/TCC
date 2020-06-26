@@ -40,6 +40,8 @@ const CasosSchema=new mongoose.Schema({
 
 });
 
+
+    
    
 
     const Casos=mongoose.model('Casos',CasosSchema);

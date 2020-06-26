@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import{Link,useHistory} from 'react-router-dom';
-import{FiPower,FiArrowLeft,FiTrash2} from 'react-icons/fi'
+import{FiPower,FiArrowLeft,FiTrash2,FiZoomIn, FiSearch} from 'react-icons/fi'
 
 
 import api from '../../services/api';
@@ -13,7 +13,8 @@ import logo from '../../assets/logoWB.jpeg';
 export default function Profile(){
 
     
-   
+    
+
     const [casos,setCasos]=useState([]);
     
 
@@ -23,25 +24,42 @@ export default function Profile(){
     const advogadoId = localStorage.getItem('advogadoId');
 
     
+ 
+    const [pesquisa,setPesquisa]=useState([]);
 
-  
-    
-  
+    localStorage.setItem('Pesquisa', pesquisa);
 
     useEffect(()=>{
+        
+        let mounted=true;
         api.get('profile',{
             headers:{
                 Authorization:advogadoId,
             }
         }).then(response =>{
+            if(mounted){
             setCasos(response.data);
 
 
-        })
+        }})
+        return()=> mounted = false;
+
 
     },[advogadoId]);
 
+   async function confirmExclusao(id) {
+        if (window.confirm("Tem certeza que deseja excluir esse caso?")) {
+            try{
+                await api.delete(`casos/${id}`
+            );
     
+            setCasos(casos.filter(casos=>casos._id!==id));
+    
+            } catch(err) {
+                alert('Hoje não faro');
+            }
+        }
+     }
 
     function handleLogout(){
         localStorage.clear();
@@ -50,23 +68,6 @@ export default function Profile(){
     }
 
 
-
-    async function handleDeleteCaso(id){
-        try{
-            await api.delete(`casos/${id}`,{
-            headers: {
-                Authorization:advogadoId,
-            }  
-            
-        });
-
-        setCasos(casos.filter(casos=>casos._id!==id));
-
-        } catch(err) {
-            alert('Hoje não faro');
-        }
-
-    }
    
     return(
         <div className="profile-container"> 
@@ -84,48 +85,47 @@ export default function Profile(){
 
             </header>
 
-           
+            <div className="search">
 
             <h1>Casos cadastrados</h1>
 
-            
 
+            <input placeholder="Pesquisar" onChange={e=>setPesquisa(e.target.value)}/>
+           
+           <Link to='/pesquisa' className="link-pesquisa"> 
+                
+                    <FiSearch size={20} color="#0a7494" /> 
+               
+                </Link>
+            </div>
+           
+           
+             
+          
+            
+          
             <ul> 
 
             {casos.map(casos =>(
 
            
-            <li key={casos.id}>
+            <li key={casos._id}>
 
                 
                 <strong>Autor/Reclamante</strong>
                 <p>{casos.autor}</p>
 
-                <strong>Réu/Reclamado</strong>
-                <p>{casos.reu}</p>
-
-                <strong>Circunstancias</strong>
-                <p>{casos.circunstancias}</p>
-
-                <strong>Fundamento Jurídico</strong>
-                <p>{casos.fundamento}</p>
-
-                <strong>Parecer</strong>
-                <p>{casos.parecer}</p>
-
-           
-
-               
-               
-                 
                 
             
-                <Link className="button" to={`/profile/${casos._id}`}> Ver Detalhes 
+                <Link to={`/profile/${casos._id}`} > 
+                <button type="button" className="verMais"> 
+                    <FiZoomIn size={20} color="#0a7494"/> 
+                </button>
                  
                   </Link>
 
-                  <button onClick={()=>handleDeleteCaso(casos._id)} type="button">
-                    <FiTrash2 size={20} color="#a8a8b3"/>
+                  <button onClick={()=>confirmExclusao(casos._id)} type="button">
+                    <FiTrash2 size={20} color="#e02041"/>
                 </button>
 
                   

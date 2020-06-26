@@ -18,12 +18,15 @@ const arquivosController = require('./controllers/arquivosController');
 
 
 const multerConfig=require('./config/multer');
+const pesquisaController = require('./controllers/pesquisaController');
+const { p2 } = require('./controllers/pesquisaController');
 
 routes.post('/uploads/:id', multer(multerConfig).single('file'),arquivosController.create);
-routes.get('/uploads/:id',arquivosController.index);
+routes.get('/uploads',arquivosController.index);
 routes.delete('/uploads/:id',arquivosController.delete);
 
-
+routes.get('/pesquisa1/:search',pesquisaController.p1);
+routes.get('/pesquisa2/:search',pesquisaController.p2);
 
 
 routes.post('/sessions', sessionController.create);
