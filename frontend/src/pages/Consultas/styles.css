@@ -55,3 +55,20 @@
 
     height: 150px;
 }
+
+
+.novo-caso-container .content ul{
+    display: grid;
+    grid-gap:5px;
+    list-style:none;
+
+}
+
+.novo-caso-container .content ul li {
+    background: #FFF;
+    padding: 10px;
+    border-radius: 8px;
+    position: relative;
+
+}
+

@@ -40,7 +40,6 @@ export default function Profile(){
             if(mounted){
             setCasos(response.data);
 
-
         }})
         return()=> mounted = false;
 
@@ -71,13 +70,13 @@ export default function Profile(){
    
     return(
         <div className="profile-container"> 
-            <header>
+            <header className="header">
 
                 <img src={logo} alt="deManobras"/>
 
                 <span>Bem vindo {nomeAdvogado} </span>
-            <Link className="button"to="/casos/novo">  Novo Caso </Link>
-            <Link className="button"to="/cliente/cadastro">  Cadastrar Cliente </Link>
+            <Link className="button"to="/consulta">  Consultar </Link>
+            <Link className="button"to="cadastro">  Cadastrar  </Link>
 
             <button onClick={handleLogout} type="button">
                 <FiPower size={18} color="#e02041" />
@@ -112,8 +111,12 @@ export default function Profile(){
             <li key={casos._id}>
 
                 
-                <strong>Autor/Reclamante</strong>
-                <p>{casos.autor}</p>
+                <strong>Cliente</strong>
+                <p>{casos.cliente}</p>
+
+                <strong>Descrição</strong>
+                <p>{casos.circunstancias}</p>
+
 
                 
             
@@ -131,7 +134,12 @@ export default function Profile(){
                   
                 
 
-            </li>))}
+            </li>
+            
+            
+            
+            ))}
+
 
         </ul>
 

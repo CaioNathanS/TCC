@@ -3,41 +3,41 @@ const mongoose=require('../database');
 
 
 const CasosSchema=new mongoose.Schema({
-    autor:{
+    cliente:{
         type:String,
-        require:true,
     },
-
-    reu:{
-        type:String,
-        require:true,
+    outraParte:{
+        type:String
     },
-
     circunstancias:{
         type:String,
-        require:true,
+        required:true,
     },
-
     fundamento:{
         type:String,
-        require:true,
+        required:true,
     },
-
     parecer:{
         type:String,
-        require:true,
+    },
+    advogados_id:{
+        type:String,
+        required:true,
+    },  
+    andamento:{
+        type:String,
+        default:"Em andamento"
+        
+    },
+    fase:{
+        type:String,
     },
 
-
-   advogados_id:{
-        type:String,  
-    },
-
-    arquivo:[
-        {type:String}
-    ]
-
-
+    reuAutor:{
+        type:String,
+        required:true,
+    }
+  
 });
 
 

@@ -31,7 +31,7 @@ const ClientesSchema=new mongoose.Schema({
 
    orgao:{
         type:String,  
-        required:true,
+       
         default:'SSP-DF',
     },
 
@@ -76,6 +76,10 @@ const ClientesSchema=new mongoose.Schema({
         required:true,
         lowercase:true,
     },
+
+    caso:{
+        type:String,
+    }
 
 });
 

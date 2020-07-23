@@ -63,7 +63,7 @@ export default function Pesquisa(){
     <ul className="pesquisa">
         {resultados.map(resultados=>(
             <li key={resultados._id}>
-                 <strong>{resultados.autor}: autor do caso - no caso {resultados.circunstancias} </strong>
+                 <strong>{resultados.cliente}: autor do caso - no caso {resultados.circunstancias} </strong>
                  <Link to={`/profile/${resultados._id}`} > 
                 <button type="button" className="verMaisPesquisa"> 
                     <FiZoomIn size={20} color="#0a7494"/> 
@@ -77,7 +77,7 @@ export default function Pesquisa(){
 
         {resultados2.map(resultados=>(
             <li key={resultados._id}>
-                <strong>{resultados.reu}: reu - no caso {resultados.circunstancias}</strong> 
+                <strong>{resultados.cliente}: reu - no caso {resultados.circunstancias}</strong> 
                 <Link to={`/profile/${resultados._id}`} > 
                 <button type="button" className="verMaisPesquisa"> 
                     <FiZoomIn size={20} color="#0a7494"/> 
@@ -96,7 +96,7 @@ export default function Pesquisa(){
 
     </ul>
 
-    <Link className="back-link"to="/">
+    <Link className="back-link"to="/profile">
                         <FiArrowLeft size={16} color ="#E02041"/>
                         
                         Voltar

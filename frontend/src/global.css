@@ -32,14 +32,38 @@ form input{
     border-radius: 3px;
 }
 
+select{
+    border: 1px solid #111111;
+    width: 80%;
+    
+    height: 30px;
+    border-radius: 3px; 
+}
+
 form textarea{
-    margin-top: 10px;
+
+    margin-bottom: 20px;
     width: 100%;
     resize: vertical;
     min-height: 140px;
     color: #333;
     border: 1px solid #111111;
-    border-radius: 3px;
+    border-radius: 8px;
+    
+    line-height: 24px;
+}
+
+
+
+ul li textarea{
+    
+    margin-bottom: 20px;
+    width: 100%;
+    resize: vertical;
+    min-height: 140px;
+    color: #333;
+    border: 1px solid #111111;
+    border-radius: 8px;
     
     line-height: 24px;
 }
@@ -66,7 +90,7 @@ a{
 .button{
     width: 100%;
     height: 60px;
-    background: #8f1570;
+    background: #0f0f0f;
     border: 0;
     border-radius: 5px;
     color: #FFF;
@@ -104,4 +128,21 @@ a{
 
 .back-link:hover{
     opacity: 0.8;
+}
+
+@media print{
+   .button,.header,.noPrint,h1,span,button,img{
+       display: none;
+    }  
+    input{
+        border:none;
+    } 
+
+    ul li{
+        margin-top: 100px;
+        width: 650px;
+        height: 850px;
+    }
+
+
 }

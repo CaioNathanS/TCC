@@ -45,13 +45,14 @@
 .novo-cliente-container .content form{
     width: 100%;
     max-width: 450px;
-    margin-left: 110px;
+    margin-left: 100px;
     
 
 }
 
 .novo-cliente-container .content form strong{
   margin-left:5px;
+  text-align: left;
 
 }
 
@@ -101,5 +102,9 @@ form strong{
     padding:10px;
     margin-bottom: 8px;
     align-items: center;
+}
+
+.verCliente{
+   background-color: transparent;
 }
 

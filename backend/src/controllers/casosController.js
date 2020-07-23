@@ -9,7 +9,7 @@ async create (req,res){
 
     try{
         const casos= await Casos.create(req.body);
-
+        
         return res.send({casos});
     } catch(err){
         return res.status(400).send({error:'td errado malandro'});
@@ -21,6 +21,9 @@ async index (req,res){
         const {id} =req.params;
 
   try{ const casos = await Casos.find({_id:`${id}`});
+    
+
+
         return res.send(casos);
 
     }catch(err){
@@ -50,6 +53,8 @@ async update(req,res){
     const circunstancias =  req.body.circunstancias;
     const fundamento = req.body.fundamento;
     const parecer = req.body.parecer;
+    const andamento = req.body.andamento;
+    const fase = req.body.fase;
 
     try{
 
@@ -71,6 +76,15 @@ async update(req,res){
 
      if(parecer!==''){
         await Casos.findOneAndUpdate({_id:req.params.id},{parecer:parecer});
+     
+    }
+
+    if(fase!==''){
+        await Casos.findOneAndUpdate({_id:req.params.id},{fase:fase});
+     
+    }
+    if(andamento!==''){
+        await Casos.findOneAndUpdate({_id:req.params.id},{andamento:andamento});
      
     }
     res.send('edited');

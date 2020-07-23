@@ -1,6 +1,6 @@
-import React ,{useState}from 'react';
+import React ,{useState,useEffect}from 'react';
 import{FiArrowLeft} from 'react-icons/fi'
-import{Link,useHistory} from 'react-router-dom';
+import{Link} from 'react-router-dom';
 
 import api from '../../services/api';
 
@@ -9,7 +9,7 @@ import'./styles.css';
 
 import logo from '../../assets/logoWB.jpeg';
 
-export default function NovoCliente(){
+export default function Cadastro(){
 
    
 
@@ -27,11 +27,67 @@ export default function NovoCliente(){
     const [estado,setEstado]=useState('');
     const [telefone,setTelefone]=useState('');
     const [email,setemail]=useState('');
+
+
+    const [clientes,setClientes]=useState([]);
+
+
+    const [cliente,setCliente]=useState([]);
+    
+    const [outraParte,setOutra] = useState('');
+    const [circunstancias,SetCircunstancias]=useState('');
+    const [fundamento,setFundamento]=useState('');
+    const [reuAutor,setReuAutor]=useState('');
+    
     
     
    
     
-    const history=useHistory();
+   
+
+
+    useEffect(()=>{
+
+        let isSubscribed = true
+
+        api.get('clientes'
+        ).then(response =>{
+
+            if (isSubscribed) {
+                setClientes(response.data);
+              }
+            
+        })
+        return () => isSubscribed = false
+
+    },[]);
+
+    async function handleNovoCaso(e){
+        e.preventDefault();
+       
+        const data ={
+            cliente,
+            outraParte,
+            circunstancias,
+            fundamento,
+            reuAutor,
+            advogados_id:localStorage.getItem('advogadoId'),
+        
+        };
+
+        try{
+            await api.post('casos',data) 
+                
+    
+           
+            alert('Caso cadastrado com sucesso!');
+
+        } catch(err){
+            alert('Erro ao cadastrar')
+
+        }
+           window.location.reload();
+    }
 
 
    
@@ -63,7 +119,7 @@ export default function NovoCliente(){
             await api.post('clientes',data, 
                 
         )
-            history.push('/profile');
+         alert('Cadastro realizado com sucesso!');
 
         } catch(err){
             alert('Erro ao cadastrar')
@@ -72,10 +128,27 @@ export default function NovoCliente(){
 
         }
 
+        window.location.reload();
+
 
 
     }
 
+    function hide(){
+        document.getElementById("defalutCli").hidden=true;
+      
+    }
+
+
+    function showCliente(){
+        document.getElementById("cliente").hidden=false;
+        document.getElementById("caso").hidden=true;
+    }
+
+    function showCaso(){
+        document.getElementById("caso").hidden=false;
+        document.getElementById("cliente").hidden=true;
+    }
    
 
     
@@ -88,8 +161,10 @@ export default function NovoCliente(){
         
         <img src={logo} alt="deManobras"/>
 
-        <h1>Cadastrar Cliente</h1>
-        <p>Descreva o caso e pa e tudo mais aquela coisa toda de deManobras </p>
+        <h1>Cadastrar </h1>
+       
+        <button className="button"onClick={()=>showCaso()}>  Caso  </button>
+            <button className="button"onClick={()=>showCliente()}>  Cliente  </button>
 
         <Link className="back-link"to="/profile">
                 <FiArrowLeft size={16} color ="#E02041"/>
@@ -100,7 +175,7 @@ export default function NovoCliente(){
 
         </section>
 
-        <form onSubmit={handleNovoCliente}> 
+        <form onSubmit={handleNovoCliente} id="cliente" hidden="true" > 
 
         <div className="inputs">
             <strong>Nome</strong>
@@ -111,6 +186,8 @@ export default function NovoCliente(){
             required
             />
         </div>
+
+
 
         <div className="inputs">
             <strong>Nacionalidade</strong>
@@ -269,6 +346,72 @@ export default function NovoCliente(){
                      
 
             
+
+            <button type="submit"className="button">Cadastrar</button>
+            
+            
+         </form>
+
+
+
+         <form onSubmit={handleNovoCaso} id="caso" hidden="true"> 
+
+            <div className="unirInputs"> 
+
+
+            <select value={cliente}
+            onChange={e=>setCliente(e.target.value)} onClick={()=>hide}>
+
+                 <option id="defaultCli" hidden="false"> Selecione um cliente </option> 
+
+            {clientes.map(clientes=>(
+                    <option key={clientes._id}  onChange={e=>setClientes(clientes._id)} > {clientes.nome} </option>
+
+                ))}
+
+
+            </select>
+
+
+            
+
+            <input list="cond"
+            placeholder="Condição"
+            value={reuAutor}
+            onChange={e=>setReuAutor(e.target.value)}
+            required
+            />  
+          
+            </div>
+
+            <input 
+            placeholder="Outra Parte"
+            value={outraParte}
+            onChange={e=>setOutra(e.target.value)}
+            required
+            />
+
+            <textarea 
+            placeholder="Circunstancias"
+            rows="12"
+            value={circunstancias}
+            onChange={e=>SetCircunstancias(e.target.value)}
+            required
+            />
+
+            <input 
+            placeholder="Fundamento"
+            value={fundamento}
+            onChange={e=>setFundamento(e.target.value)}
+            required
+            />
+
+
+
+            <datalist id="cond" >
+                    <option>Réu</option>
+                    <option>Autor</option>
+                 </datalist>
 
             <button type="submit"className="button">Cadastrar</button>
             

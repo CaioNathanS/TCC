@@ -15,5 +15,22 @@ async index(req,res) {
          return res.status(400).send({error:'td errado malandro'});
     }
 
+    },
+
+    async consultar(req,res) {
+
+           
+    try{
+       const casos= await Casos.find({'andamento':"Em andamento"}).countDocuments()  
+        return res.json(casos);
+
+    }catch{
+         return res.status(400).send({error:'td errado malandro'});
     }
+
+    }
+
+    
+
+   
 }
