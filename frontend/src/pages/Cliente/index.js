@@ -1,6 +1,6 @@
 import React, {useEffect,useState}from 'react';
 import{Link,useHistory} from 'react-router-dom';
-import{FiPower,FiEdit} from 'react-icons/fi'
+import{FiPower,FiEdit,FiArrowLeft} from 'react-icons/fi'
 
 import api from '../../services/api';
 
@@ -320,6 +320,10 @@ export default function Cliente({match}){
 
         </ul> 
        
+        <Link className="back-link"to="/profile">
+                <FiArrowLeft size={16} color ="#E02041"/> 
+                Voltar 
+                </Link>
             
 
         </div>

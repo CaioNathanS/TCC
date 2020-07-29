@@ -55,6 +55,7 @@ async update(req,res){
     const parecer = req.body.parecer;
     const andamento = req.body.andamento;
     const fase = req.body.fase;
+    const resumo = req.body.resumo;
 
     try{
 
@@ -85,6 +86,10 @@ async update(req,res){
     }
     if(andamento!==''){
         await Casos.findOneAndUpdate({_id:req.params.id},{andamento:andamento});
+     
+    }
+    if(resumo!==''){
+        await Casos.findOneAndUpdate({_id:req.params.id},{resumo:resumo});
      
     }
     res.send('edited');

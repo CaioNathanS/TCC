@@ -93,14 +93,15 @@ form strong{
 }
 
 .unirInputs a{
-    background:#fafafd ;
+   
+   
     width: 30%;
     height: 50px;
-    color: #333;
-    border: 1px solid #dcdce6;
+    color: rgb(0, 0, 0);
+   
     border-radius: 8px;
     padding:10px;
-    margin-bottom: 8px;
+    
     align-items: center;
 }
 

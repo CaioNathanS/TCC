@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import{Link,useHistory} from 'react-router-dom';
-import{FiPower,FiArrowLeft,FiEdit,FiSend,FiTrash2, FiZoomIn} from 'react-icons/fi'
+import{FiPower,FiArrowLeft,FiEdit,FiSend,FiTrash2, FiZoomIn, FiEdit2} from 'react-icons/fi'
 
 import api from '../../services/api';
 
@@ -20,6 +20,7 @@ export default function Detalhes({match}){
     const [parecer,setParecer]=useState('');
     const [fase,setFase]=useState('');
     const [andamento,setAndamento]=useState('');
+    const [resumo,setResumo]=useState('');
 
     const history=useHistory();
 
@@ -87,6 +88,7 @@ export default function Detalhes({match}){
             parecer,
             fase,
             andamento,
+            resumo,
             advogados_id:localStorage.getItem('advogadoId')
         };
         if (window.confirm("Tem certeza que deseja editar esse caso?")) {
@@ -192,7 +194,7 @@ export default function Detalhes({match}){
 
            
              <label >{casos.reuAutor}  <input type="checkbox" id="reuAutor" checked={true} readOnly/> </label>
-               
+               <br></br>
                  
 
                 <form onSubmit={editarCaso} >
@@ -200,10 +202,10 @@ export default function Detalhes({match}){
                
 
                  <div className="unirInputs">   
-                 <Link className="button1" to={`/cliente/${casos.cliente}`} >  <FiZoomIn color="#0a7494" size={16}/>  Cliente   </Link>  
+                 <Link  to={`/cliente/${casos.cliente}`} >  <FiZoomIn color="#0a7494" size={16}/>  Cliente   </Link>  
                 <input className="cliente"
                     placeholder={casos.cliente}
-                    value={clienteCaso}
+                    defaultValue={casos.cliente}
                     onChange={e=>setClienteCaso(e.target.value)}
                     
                  />
@@ -221,7 +223,7 @@ export default function Detalhes({match}){
 
                 <strong> Outra Parte </strong>
                 <input placeholder={casos.outraParte}
-                        value={outraParte} 
+                        defaultValue={casos.outraParte} 
                         onChange={e=>setOutra(e.target.value)}
                         />
                 </div>
@@ -234,7 +236,7 @@ export default function Detalhes({match}){
                 
                 <textarea
                 placeholder={casos.circunstancias}
-                value={circunstancias}
+                defaultValue={casos.circunstancias}
                 onChange={e=>SetCircunstancias(e.target.value)}
                 
                 />
@@ -246,7 +248,7 @@ export default function Detalhes({match}){
 
                 <input 
                 placeholder={casos.fundamento}
-                value={fundamento}
+                defaultValue={casos.fundamento}
                 onChange={e=>setFundamento(e.target.value)}
                 
                 />
@@ -259,8 +261,9 @@ export default function Detalhes({match}){
                 <strong> Parecer </strong>   
 
                 <input 
+                defaultValue={casos.parecer}
                 placeholder={casos.parecer}
-                value={parecer}
+                
                 onChange={e=>setParecer(e.target.value)}
                 
                 />
@@ -294,13 +297,13 @@ export default function Detalhes({match}){
                 </div>
 
               
-
+                
 
                 <button type="Submit"> <FiEdit size={20}  /> Editar </button>
 
                 </form> 
                 
-
+                <br></br>
 
                 <hr/>
 
@@ -313,6 +316,8 @@ export default function Detalhes({match}){
                     upload.filter(caso=>(caso.caso===`${casos._id}`)).map(upload=>(
                    
                     <div className="unirInputs">
+
+                        <p> 
                     < a
                      key={upload.size} 
                     href={upload.url} 
@@ -320,6 +325,7 @@ export default function Detalhes({match}){
                     target="_blank">
                         {upload.name}   
                      </a> 
+                     </p>
 
                     <FiTrash2 onClick={()=>excluirArquivo(upload._id)} size={18} color="#e02041"/>
                     </div>
@@ -340,7 +346,7 @@ export default function Detalhes({match}){
                </div>
 
                <button onClick={handleSubmit} type="button"> <FiSend size={20}  /> Enivar </button> 
-
+             
                
 
 
@@ -352,16 +358,23 @@ export default function Detalhes({match}){
           
             <li  className="noPrint">
                         
-
+            <form onSubmit={editarCaso}> 
             <strong>Resumo do Processo</strong>
 
 
             <textarea 
-            placeholder="Resumo do Processo"
+            placeholder={casos.resumo}
+            defaultValue={casos.resumo}
+            onChange={e=>setResumo(e.target.value)}
             rows="12"
             
             />
 
+            <button type="submit"> <FiEdit2 size={20}  /> Editar</button>
+
+           
+
+            </form>
 
             
             <hr></hr>

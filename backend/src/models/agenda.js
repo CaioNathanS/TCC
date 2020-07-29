@@ -30,7 +30,7 @@ const AgendaSchema=new mongoose.Schema({
    },
    lido:{
     type:String,
-   default:"Pendente",
+    default:"Pendente",
    }
    
 

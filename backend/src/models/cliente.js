@@ -36,7 +36,7 @@ const ClientesSchema=new mongoose.Schema({
     },
 
     emissao:{
-        type:Date,  
+        type:String,  
         required:true,
     },
 

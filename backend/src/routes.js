@@ -31,7 +31,7 @@ routes.get('/uploads',arquivosController.index);
 routes.delete('/uploads/:id',arquivosController.delete);
 
 routes.get('/pesquisa1/:search',pesquisaController.p1);
-routes.get('/pesquisa2/:search',pesquisaController.p2);
+
 
 
 routes.post('/sessions', sessionController.create);

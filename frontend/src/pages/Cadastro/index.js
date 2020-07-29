@@ -258,7 +258,8 @@ export default function Cadastro(){
             
                 <strong>Data</strong>
              <input 
-                placeholder="XX/XX/XXXX"
+             type="date"
+               
                 value={emissao}
                 onChange={e=>setEmissao(e.target.value)}
                 required

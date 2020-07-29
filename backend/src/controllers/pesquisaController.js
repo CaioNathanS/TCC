@@ -15,16 +15,7 @@ async p1(req,res) {
 
         
         
-    },
-
-    async p2(req,res) {
-
-        const pesquisa=req.params.search;
-
-        const resultado = await Casos.find({'reu': { $regex: new RegExp(pesquisa), $options: 'i' }});
-
-       
-        return res.json(resultado);
-        
     }
+
+
 }

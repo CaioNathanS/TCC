@@ -13,6 +13,7 @@ export default function NovoCaso(){
 
    const [agenda,SetAgenda]=useState([]);
    const [casos,setCasos]=useState([]);
+   const [clientes,setClientes]=useState([]);
 
 
    useEffect(()=>{
@@ -27,6 +28,26 @@ export default function NovoCaso(){
 
   
     return ()=>mouted= false;
+
+},[]);
+
+
+
+
+
+useEffect(()=>{
+
+    let isSubscribed = true
+
+    api.get('clientes'
+    ).then(response =>{
+
+        if (isSubscribed) {
+            setClientes(response.data);
+          }
+        
+    })
+    return () => isSubscribed = false
 
 },[]);
 
@@ -50,10 +71,18 @@ useEffect(()=>{
 function showCasos(){
     document.getElementById("casos").hidden=false;
     document.getElementById("agenda").hidden=true;
+    document.getElementById("clientes").hidden=true;
 }
 
 function showAgenda(){
     document.getElementById("agenda").hidden=false;
+    document.getElementById("casos").hidden=true;
+    document.getElementById("clientes").hidden=true;
+}
+
+function showClientes(){
+    document.getElementById("clientes").hidden=false;
+    document.getElementById("agenda").hidden=true;
     document.getElementById("casos").hidden=true;
 }
     
@@ -66,7 +95,7 @@ function showAgenda(){
         <h1>Fazer consulta</h1>
 
         <button onClick={showCasos}>Casos</button><br></br>
-        <button>Clientes</button> <br></br>
+        <button onClick={showClientes}>Clientes</button> <br></br>
         <button onClick={showAgenda}>Agendamentos Pendentes</button> 
        
         
@@ -83,31 +112,43 @@ function showAgenda(){
 
         </section>
 
-        <ul> 
-     
-        {agenda.map(agenda =>(
+        <ul>
+            {agenda.map(agenda =>(
 
            
-        <li key={agenda.id} hidden={true} id="agenda">
-            <strong>Nome </strong>
-            <p>{agenda.nome}</p>
-            <strong>Telefone </strong>
-            <p>{agenda.telefone}</p>
-            <strong>Email </strong>
-            <p>{agenda.email}</p>
-            <strong>Assunto </strong>
-            <p>{agenda.assunto}</p>
-            <strong> Horário </strong>
-            <p>{agenda.Horário}</p>
+            <li key={agenda.id} id="agenda" hidden={true}>
+                <strong>Nome </strong>
+                <p>{agenda.nome}</p>
 
-        </li>))}
+                <strong>Descrição</strong>
+                <p>{agenda.email}</p>
 
-        <li hidden={true} id="casos">
+                
+      
 
-        <p> Casos em andamento: {casos} </p>
+            </li>))}
 
-                </li>
-                    </ul>
+        </ul>
+
+        <ul>
+            <li hidden={true} id="casos">
+
+    <p> Casos em andamento: {casos} </p>
+
+    </li>
+
+        </ul>
+
+
+      
+            {clientes.map(clientes =>(
+
+                <strong id="clientes" hidden={true} >{clientes.nome}</strong>     
+      
+
+        ))}
+
+       
 
 
             </div>

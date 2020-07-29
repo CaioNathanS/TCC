@@ -36,6 +36,9 @@ const CasosSchema=new mongoose.Schema({
     reuAutor:{
         type:String,
         required:true,
+    },
+    resumo:{
+        type:String,
     }
   
 });

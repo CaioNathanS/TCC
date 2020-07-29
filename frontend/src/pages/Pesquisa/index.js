@@ -14,7 +14,7 @@ export default function Pesquisa(){
 
     const pesquisa=localStorage.getItem('Pesquisa')
     const[resultados,setResultados]=useState([]);
-    const[resultados2,setResultados2]=useState([]);
+  
 
     useEffect(()=>{
         let mounted=true;
@@ -30,19 +30,7 @@ export default function Pesquisa(){
 
     },[pesquisa]);
 
-    useEffect(()=>{
-        let mounted=true;
-        api.get(`pesquisa2/${pesquisa}`,{
-            
-        }).then(response =>{
-            if(mounted){
-            setResultados2(response.data);
-
-        }})
-        return()=> mounted = false;
-
-
-    },[pesquisa]);
+   
 
 
     return(
@@ -75,24 +63,7 @@ export default function Pesquisa(){
 
         ))}
 
-        {resultados2.map(resultados=>(
-            <li key={resultados._id}>
-                <strong>{resultados.cliente}: reu - no caso {resultados.circunstancias}</strong> 
-                <Link to={`/profile/${resultados._id}`} > 
-                <button type="button" className="verMaisPesquisa"> 
-                    <FiZoomIn size={20} color="#0a7494"/> 
-                </button>
-                 
-                  </Link>
-     
-        
-            </li>
-
-            
-
-        ))}
-
-
+       
 
     </ul>
 
