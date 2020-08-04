@@ -3,6 +3,16 @@ const mongoose=require('../database');
 
 
 const ClientesSchema=new mongoose.Schema({
+
+    tipo:{
+        type:String
+    },
+
+    cnpj:{
+        type:String
+    },
+
+
     nome:{
         type:String,
         require:true,
@@ -10,7 +20,7 @@ const ClientesSchema=new mongoose.Schema({
 
     estadoCivil:{
         type:String,
-        require:true,
+      
     },
 
     nacionalidade:{
@@ -20,12 +30,12 @@ const ClientesSchema=new mongoose.Schema({
 
     profissao:{
         type:String,
-        require:true,
+       
     },
 
     rg:{
         type:String,
-        require:true,
+       
     },
 
 
@@ -37,12 +47,12 @@ const ClientesSchema=new mongoose.Schema({
 
     emissao:{
         type:String,  
-        required:true,
+        
     },
 
     cpf:{
         type:String,  
-        required:true,
+        
     },
 
     cep:{

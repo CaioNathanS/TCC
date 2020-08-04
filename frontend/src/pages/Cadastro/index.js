@@ -19,6 +19,7 @@ export default function Cadastro(){
     const [profissao,SetProfissao]=useState('');
     const [rg,setRg]=useState('');
     const [cpf,setCpf]=useState('');
+    const [cnpj,setCnpj]=useState('');
     const [orgao,setOrgao]=useState('');
     const [emissao,setEmissao]=useState('');
     const [cep,setCep]=useState('');
@@ -93,12 +94,13 @@ export default function Cadastro(){
    
    
 
-    async function handleNovoCliente(e){
+    async function handleNovoClienteF(e){
         e.preventDefault();
 
         
 
         const data ={
+            tipo:'Física',
             nome,
             nacionalidade,
             estadoCivil,
@@ -134,20 +136,65 @@ export default function Cadastro(){
 
     }
 
+
+    async function handleNovoClienteJ(e){
+        e.preventDefault();
+
+        
+
+        const data ={
+            tipo:'Jurídica',
+            nome,
+            cnpj,
+            cep,
+            bairro,
+            cidade,
+            estado,
+            telefone,
+            email,
+        };
+
+        try{
+            await api.post('clientes',data, 
+                
+        )
+         alert('Cadastro realizado com sucesso!');
+
+        } catch(err){
+            alert('Erro ao cadastrar')
+
+            console.log(err);
+
+        }
+
+        window.location.reload();
+
+
+
+    }
+
     function hide(){
         document.getElementById("defalutCli").hidden=true;
       
     }
 
 
-    function showCliente(){
-        document.getElementById("cliente").hidden=false;
+    function showClienteF(){
+        document.getElementById("clientef").hidden=false;
         document.getElementById("caso").hidden=true;
+        document.getElementById("clientej").hidden=true;
+    }
+
+    function showClienteJ(){
+        document.getElementById("clientej").hidden=false;
+        document.getElementById("caso").hidden=true;
+        document.getElementById("clientef").hidden=true;
     }
 
     function showCaso(){
         document.getElementById("caso").hidden=false;
-        document.getElementById("cliente").hidden=true;
+        document.getElementById("clientef").hidden=true;
+        document.getElementById("clientej").hidden=true;
     }
    
 
@@ -164,7 +211,10 @@ export default function Cadastro(){
         <h1>Cadastrar </h1>
        
         <button className="button"onClick={()=>showCaso()}>  Caso  </button>
-            <button className="button"onClick={()=>showCliente()}>  Cliente  </button>
+
+           <button className="button"onClick={()=>showClienteJ()}>  Cliente - Pessoa Jurídica </button>
+            <button className="button"onClick={()=>showClienteF()}>  Cliente - Pessoa Física  </button>
+           
 
         <Link className="back-link"to="/profile">
                 <FiArrowLeft size={16} color ="#E02041"/>
@@ -175,7 +225,7 @@ export default function Cadastro(){
 
         </section>
 
-        <form onSubmit={handleNovoCliente} id="cliente" hidden="true" > 
+        <form onSubmit={handleNovoClienteF} id="clientef" hidden={true} > 
 
         <div className="inputs">
             <strong>Nome</strong>
@@ -354,8 +404,119 @@ export default function Cadastro(){
          </form>
 
 
+         <form onSubmit={handleNovoClienteJ} id="clientej" hidden={true} > 
 
-         <form onSubmit={handleNovoCaso} id="caso" hidden="true"> 
+            <div className="inputs">
+                <strong>Nome</strong>
+                <input 
+                placeholder="Nome"
+                value={nome}
+                onChange={e=>setNome(e.target.value)}
+                required
+                />
+            </div>
+
+
+              
+
+
+            <div className="inputs">    
+                  <strong>CNPJ</strong>
+                    <input 
+                        placeholder="CNPJ"
+                        value={cnpj}
+                        onChange={e=>setCnpj(e.target.value)}
+                        required
+                        /> 
+                </div>
+
+
+
+            <div className="unirInputs">
+                <div className="inputs"> 
+                    <strong>CEP</strong>
+            <input 
+                    placeholder="Ex:73000000"
+                    value={cep}
+                    onChange={e=>setCep(e.target.value)}
+                    required
+                    /> 
+                </div>
+                
+
+                    <div className="inputs"> 
+                    <strong>Estado</strong>
+                <input 
+                    placeholder="Estado"
+                    value={estado}
+                    onChange={e=>setEstado(e.target.value)}
+                    required
+                    /> 
+                    </div>
+
+                </div>
+
+                <div className="unirInputs">
+
+                    <div className="inputs"> 
+                        <strong>Cidade</strong>
+
+                    <input 
+                            placeholder="Cidade"
+                            value={cidade}
+                            onChange={e=>setCidade(e.target.value)}
+                            required
+                            /> 
+                        </div>
+
+                    <div className="inputs"> 
+                        <strong>Bairro</strong>
+                        
+                        <input 
+                            placeholder="Bairro"
+                            value={bairro}
+                            onChange={e=>setBairro(e.target.value)}
+                            required
+                            /> 
+                            </div>
+
+                        </div>
+
+                    
+
+                        <div className="inputs"> 
+                            <strong>Telefone</strong>
+
+                            <input 
+                                    placeholder="Ex:9999-9999"
+                                    value={telefone}
+                                    onChange={e=>setTelefone(e.target.value)}
+                                    required
+                                    /> 
+                                    </div>
+                                
+                    <div className="inputs"> 
+                            <strong>E-mail</strong>
+                                <input 
+                                    placeholder="E-mail"
+                                    value={email}
+                                    onChange={e=>setemail(e.target.value)}
+                                    required
+                                    /> 
+                                </div>
+
+                        
+
+                
+
+                <button type="submit"className="button">Cadastrar</button>
+                
+                
+         </form>
+
+
+
+         <form onSubmit={handleNovoCaso} id="caso" hidden={true}> 
 
             <div className="unirInputs"> 
 
@@ -363,7 +524,7 @@ export default function Cadastro(){
             <select value={cliente}
             onChange={e=>setCliente(e.target.value)} onClick={()=>hide}>
 
-                 <option id="defaultCli" hidden="false"> Selecione um cliente </option> 
+                 <option id="defaultCli" hidden={false}> Selecione um cliente </option> 
 
             {clientes.map(clientes=>(
                     <option key={clientes._id}  onChange={e=>setClientes(clientes._id)} > {clientes.nome} </option>

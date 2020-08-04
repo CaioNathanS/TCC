@@ -202,7 +202,7 @@ export default function Detalhes({match}){
                
 
                  <div className="unirInputs">   
-                 <Link  to={`/cliente/${casos.cliente}`} >  <FiZoomIn color="#0a7494" size={16}/>  Cliente   </Link>  
+                 <Link  to={`/cliente/${casos.cliente}`} > Cliente <FiZoomIn color="#0a7494" size={16}/>   </Link>  
                 <input className="cliente"
                     placeholder={casos.cliente}
                     defaultValue={casos.cliente}

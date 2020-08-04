@@ -1,5 +1,5 @@
 import React ,{useState,useEffect}from 'react';
-import {FiArrowLeft} from'react-icons/fi';
+import {FiArrowLeft,FiZoomIn} from'react-icons/fi';
 import{Link} from 'react-router-dom';
 
 import api from '../../services/api';
@@ -12,17 +12,19 @@ import logo from '../../assets/logoWB.jpeg';
 export default function NovoCaso(){
 
    const [agenda,SetAgenda]=useState([]);
-   const [casos,setCasos]=useState([]);
+   const [andamento,setAndamento]=useState([]);
+   const [encerrado,setEncerrado]=useState([]);
    const [clientes,setClientes]=useState([]);
-
+   const [totalClientes,setTotalCli]=useState([]);
+   const [juridica,setJuridica]=useState([]);
 
    useEffect(()=>{
 
     let mouted =true;
-    api.get('consulta')
+    api.get('casosAndamento')
     .then(response =>{
         if(mouted){
-        setCasos(response.data)
+        setAndamento(response.data)
 
     }})
 
@@ -31,6 +33,20 @@ export default function NovoCaso(){
 
 },[]);
 
+useEffect(()=>{
+
+    let mouted =true;
+    api.get('casosEncerrado')
+    .then(response =>{
+        if(mouted){
+        setEncerrado(response.data)
+
+    }})
+
+  
+    return ()=>mouted= false;
+
+},[]);
 
 
 
@@ -44,6 +60,39 @@ useEffect(()=>{
 
         if (isSubscribed) {
             setClientes(response.data);
+          }
+        
+    })
+    return () => isSubscribed = false
+
+},[]);
+
+
+useEffect(()=>{
+
+    let isSubscribed = true
+
+    api.get('clientestotal'
+    ).then(response =>{
+
+        if (isSubscribed) {
+            setTotalCli(response.data);
+          }
+        
+    })
+    return () => isSubscribed = false
+
+},[]);
+
+useEffect(()=>{
+
+    let isSubscribed = true
+
+    api.get('clientesJuri'
+    ).then(response =>{
+
+        if (isSubscribed) {
+            setJuridica(response.data);
           }
         
     })
@@ -72,15 +121,18 @@ function showCasos(){
     document.getElementById("casos").hidden=false;
     document.getElementById("agenda").hidden=true;
     document.getElementById("clientes").hidden=true;
+    document.getElementById("clientes2").hidden=true;
 }
 
 function showAgenda(){
     document.getElementById("agenda").hidden=false;
     document.getElementById("casos").hidden=true;
     document.getElementById("clientes").hidden=true;
+    document.getElementById("clientes2").hidden=true;
 }
 
 function showClientes(){
+    document.getElementById("clientes2").hidden=false;
     document.getElementById("clientes").hidden=false;
     document.getElementById("agenda").hidden=true;
     document.getElementById("casos").hidden=true;
@@ -96,7 +148,7 @@ function showClientes(){
 
         <button onClick={showCasos}>Casos</button><br></br>
         <button onClick={showClientes}>Clientes</button> <br></br>
-        <button onClick={showAgenda}>Agendamentos Pendentes</button> 
+        <button onClick={showAgenda}>Agendamentos</button> 
        
         
 
@@ -112,44 +164,61 @@ function showClientes(){
 
         </section>
 
-        <ul>
-            {agenda.map(agenda =>(
-
-           
-            <li key={agenda.id} id="agenda" hidden={true}>
-                <strong>Nome </strong>
-                <p>{agenda.nome}</p>
-
-                <strong>Descrição</strong>
-                <p>{agenda.email}</p>
-
-                
-      
-
-            </li>))}
-
-        </ul>
-
-        <ul>
-            <li hidden={true} id="casos">
-
-    <p> Casos em andamento: {casos} </p>
-
-    </li>
-
-        </ul>
-
-
-      
-            {clientes.map(clientes =>(
-
-                <strong id="clientes" hidden={true} >{clientes.nome}</strong>     
-      
-
-        ))}
-
        
 
+           
+            <fieldset id="agenda" hidden={true}>
+                <strong> Agendamentos</strong>
+                 <p>Pendentes:</p>  <br></br> 
+                 <p>Confirmados:</p>  <br></br>
+
+            </fieldset>
+
+        
+
+       
+            <fieldset hidden={true} id="casos">
+    <strong> Casos </strong> <br></br>
+    <p> Casos em andamento: {andamento} </p> <br></br>
+    <p> Casos Encerrados: {encerrado} </p> <br></br>
+    <p> Total de casos: {andamento+encerrado} </p> 
+
+
+    
+
+    </fieldset>
+
+   
+
+
+    <fieldset hidden={true} id="clientes">
+    
+    <p><strong>Clientes</strong></p> 
+        {clientes.map(clientes =>(
+           
+    <div> 
+    
+    <Link to={`/cliente/${clientes.nome}`} > 
+                <button type="button" > 
+                {clientes.nome}  <FiZoomIn size={15} color="#0a7494"/>
+                </button> 
+                 
+                  </Link>
+    
+   </div>
+    ))}  
+    
+    </fieldset>
+
+    <fieldset hidden={true} id="clientes2">
+
+
+        <p><strong>Total:</strong>{totalClientes}</p>
+        <p><strong>Pessoa Física:</strong> {totalClientes-juridica}</p>
+        <p><strong>Pessoa Jurídica:</strong>{juridica}</p>
+
+</fieldset>
+      
 
             </div>
    
