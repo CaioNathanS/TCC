@@ -36,6 +36,9 @@ export default function Início(){
             document.getElementById("div").hidden=false;
             await api.post('agenda',data);
 
+            alert('Pedido de agendamento realiado! Aguarde a confirmação por e-mail ou telefone.')
+            window.location.reload();
+
 
             
             
